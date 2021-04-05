@@ -19,11 +19,11 @@ export const useMyCart = () => {
     }, [cart]);
     const { isLoading, infoMessage, total } = state;
     const handlePay = async () => {
-        if (cart.length === 0) {
-            setState(prev => ({ ...prev, infoMessage: 'No hay productos en el carrito.' }));
-            return;
-        }
         if (user.logged) {
+            if (cart.length === 0) {
+                setState(prev => ({ ...prev, infoMessage: 'No hay productos en el carrito.' }));
+                return;
+            }
             setState(prev => ({ ...prev, isLoading: true }));
             await addCart(cart, user);
             cleanCart();
